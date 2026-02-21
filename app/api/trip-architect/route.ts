@@ -6,11 +6,13 @@ import { TRIP_ARCHITECT_SYSTEM } from "../lib/prompts-config";
 import { getImageForQuery } from "../lib/images";
 import { sanitizePlaceholders } from "../lib/sanitize";
 
-function getCountryCode(countryName: string): string | undefined {
+function getCountryCode(countryName: string | undefined | null): string | undefined {
+  if (countryName == null || typeof countryName !== "string" || !countryName.trim()) {
+    return undefined;
+  }
   const countries = Country.getAllCountries();
-  const found = countries.find(
-    (c) => c.name.toLowerCase() === countryName.toLowerCase()
-  );
+  const search = countryName.trim().toLowerCase();
+  const found = countries.find((c) => c.name?.toLowerCase() === search);
   return found?.isoCode;
 }
 
