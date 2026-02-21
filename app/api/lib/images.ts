@@ -46,7 +46,7 @@ export async function getImageForQuery(
 /**
  * Enriches an array of items with image URLs based on a key extractor.
  */
-export async function enrichWithImages<T extends Record<string, unknown>>(
+export async function enrichWithImages<T extends object>(
   items: T[],
   imageKeyExtractor: (item: T) => string,
   imageField = "image_url"
