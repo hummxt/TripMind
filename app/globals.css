@@ -1,0 +1,501 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── COLOR PALETTE ─── */
+:root {
+  /* Border radius (low/small values) */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.25rem;
+  --radius-card: 1rem;
+  --radius-section: 1.25rem;
+
+  /* Shared palette */
+  --color-dark-blue: #355872;
+  --color-blue: #7AAACE;
+  --color-light-blue: #9CD5FF;
+  --color-white: #F7F8F0;
+}
+
+/* Dark mode - NO GRADIENTS */
+:root,
+.dark {
+  --background: #1f1f1f;
+  --foreground: #F7F8F0;
+  --primary: #7AAACE;
+  --primary-gradient: #7AAACE; /* solid, no gradient */
+  --secondary: #9CD5FF;
+  --accent: #9CD5FF;
+  --muted: #2a2a2a;
+  --muted-foreground: #9CD5FF;
+  --card: #2a2a2a;
+  --card-border: rgba(247, 248, 240, 0.1);
+  --glass-bg: rgba(31, 31, 31, 0.8);
+  --glass-border: rgba(247, 248, 240, 0.08);
+}
+
+/* Light mode - NO GRADIENTS */
+:root.light {
+  --background: #F7F8F0;
+  --foreground: #355872;
+  --primary: #7AAACE;
+  --primary-gradient: #7AAACE;
+  --secondary: #9CD5FF;
+  --accent: #9CD5FF;
+  --muted: #e8ecf0;
+  --muted-foreground: #355872;
+  --card: #F7F8F0;
+  --card-border: rgba(53, 88, 114, 0.15);
+  --glass-bg: rgba(247, 248, 240, 0.8);
+  --glass-border: rgba(53, 88, 114, 0.1);
+}
+
+@theme {
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.25rem;
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-dark-blue: var(--color-dark-blue);
+  --color-blue: var(--color-blue);
+  --color-light-blue: var(--color-light-blue);
+  --color-white: var(--color-white);
+}
+
+/* ─── BASE ─── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.08) transparent;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Noise overlay for texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+::selection {
+  background: rgba(122, 170, 206, 0.3);
+  color: var(--color-white);
+}
+
+/* ─── LIGHT MODE OVERRIDES ─── */
+:root:where(.light) body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+:root:where(.light) * {
+  scrollbar-color: rgba(0,0,0,0.1) transparent;
+}
+
+:root:where(.light) body::before {
+  opacity: 0.015;
+}
+
+:root:where(.light) .card-surface {
+  background: var(--card);
+  border-color: var(--card-border);
+  box-shadow: 0 1px 3px rgba(53, 88, 114, 0.08);
+}
+
+:root:where(.light) .card-surface:hover {
+  border-color: rgba(53, 88, 114, 0.2);
+  box-shadow: 0 20px 40px -12px rgba(53, 88, 114, 0.12);
+}
+
+:root:where(.light) .glass {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+}
+
+:root:where(.light) .glass:hover {
+  border-color: rgba(53, 88, 114, 0.15);
+}
+
+:root:where(.light) .glow-line {
+  background: var(--primary);
+  opacity: 0.4;
+}
+
+:root:where(.light) .grid-pattern {
+  background-image: 
+    linear-gradient(rgba(53, 88, 114, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53, 88, 114, 0.06) 1px, transparent 1px);
+}
+
+:root:where(.light) .tag {
+  border-color: var(--card-border);
+  background: rgba(53, 88, 114, 0.05);
+}
+
+/* Light mode: override white-based text for visibility on light backgrounds */
+:root:where(.light) [class*="text-white/10"],
+:root:where(.light) [class*="text-white/15"] {
+  color: rgba(53, 88, 114, 0.4) !important;
+}
+:root:where(.light) [class*="text-white/20"] {
+  color: rgba(53, 88, 114, 0.5) !important;
+}
+:root:where(.light) [class*="text-white/25"],
+:root:where(.light) [class*="text-white/30"] {
+  color: rgba(53, 88, 114, 0.55) !important;
+}
+:root:where(.light) [class*="text-white/35"] {
+  color: rgba(53, 88, 114, 0.55) !important;
+}
+:root:where(.light) [class*="text-white/40"] {
+  color: rgba(53, 88, 114, 0.65) !important;
+}
+:root:where(.light) [class*="text-white/50"] {
+  color: rgba(53, 88, 114, 0.6) !important;
+}
+:root:where(.light) [class*="text-white/60"] {
+  color: rgba(53, 88, 114, 0.75) !important;
+}
+
+/* Light mode: marquee and section borders */
+:root:where(.light) [class*="border-white/[0.04]"],
+:root:where(.light) [class*="border-white/\[0\.04\]"] {
+  border-color: rgba(53, 88, 114, 0.1) !important;
+}
+
+/* Light mode: btn-ghost border and hover */
+:root:where(.light) .btn-ghost {
+  border-color: rgba(53, 88, 114, 0.2);
+  color: var(--foreground);
+}
+:root:where(.light) .btn-ghost:hover {
+  border-color: rgba(53, 88, 114, 0.35);
+  background: rgba(53, 88, 114, 0.05);
+}
+
+/* Light mode: card arrow icon, borders, and backgrounds inside cards */
+:root:where(.light) .card-surface [class*="border-white/"] {
+  border-color: rgba(53, 88, 114, 0.1) !important;
+}
+:root:where(.light) .card-surface [class*="bg-white/"] {
+  background: rgba(53, 88, 114, 0.04) !important;
+}
+:root:where(.light) .card-surface [class*="text-white/20"]:hover,
+:root:where(.light) .card-surface [class*="text-white/60"] {
+  color: rgba(53, 88, 114, 0.8) !important;
+}
+
+/* Light mode: scroll indicator border */
+:root:where(.light) [class*="border-white/10"] {
+  border-color: rgba(53, 88, 114, 0.2) !important;
+}
+
+/* ─── GLASS ─── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid var(--glass-border);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass:hover {
+  border-color: rgba(247, 248, 240, 0.15);
+}
+
+/* ─── ACCENT TEXT ─── */
+.gradient-text {
+  color: var(--primary);
+}
+
+.aurora-text {
+  color: var(--primary);
+}
+
+/* ─── BUTTONS ─── */
+.btn-premium {
+  position: relative;
+  background: var(--primary);
+  color: var(--color-white);
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px -4px rgba(122, 170, 206, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-premium::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.btn-premium:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 24px -4px rgba(122, 170, 206, 0.5);
+}
+
+.btn-premium:hover::before {
+  opacity: 1;
+}
+
+.btn-premium:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-ghost {
+  position: relative;
+  background: transparent;
+  color: var(--foreground);
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  border: 1px solid var(--card-border);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-ghost:hover {
+  border-color: rgba(247, 248, 240, 0.3);
+  background: rgba(247, 248, 240, 0.06);
+}
+
+/* ─── BORDER RADIUS UTILITIES ─── */
+.rounded-card { border-radius: var(--radius-card); }
+.rounded-section { border-radius: var(--radius-section); }
+
+/* ─── CARDS ─── */
+.card-surface {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.card-surface:hover {
+  border-color: rgba(122, 170, 206, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.3);
+}
+
+/* ─── GLOW EFFECTS ─── */
+.glow-primary { box-shadow: 0 0 40px -10px rgba(122, 170, 206, 0.4); }
+.glow-secondary { box-shadow: 0 0 40px -10px rgba(156, 213, 255, 0.4); }
+.glow-accent { box-shadow: 0 0 40px -10px rgba(156, 213, 255, 0.4); }
+
+.glow-line {
+  height: 1px;
+  background: var(--primary);
+  opacity: 0.4;
+}
+
+/* ─── AURORA BG ─── */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.12;
+  will-change: transform;
+}
+
+/* ─── TAG / BADGE ─── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--card-border);
+  background: rgba(122, 170, 206, 0.08);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes aurora-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(1deg); }
+  66% { transform: translateY(10px) rotate(-1deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.2; transform: scale(1.05); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-float { animation: float 8s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+.animate-slide-up { animation: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-fade-in { animation: fade-in 0.6s ease forwards; }
+.animate-scale-in { animation: scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-marquee { animation: marquee 30s linear infinite; }
+.animate-spin-slow { animation: spin-slow 20s linear infinite; }
+
+/* Staggered children animations */
+.stagger-children > * {
+  opacity: 0;
+  animation: slide-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* ─── UTILITY ─── */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Grid pattern */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(247, 248, 240, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247, 248, 240, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ─── CARD SURFACE ─── */
+.card-surface {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+.card-surface:hover {
+  border-color: rgba(122, 170, 206, 0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.3);
+}
+
+:root:where(.light) .card-surface:hover {
+  box-shadow: 0 40px 80px -20px rgba(53, 88, 114, 0.15);
+}
+
+/* ─── TAG ─── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid var(--card-border);
+  background: rgba(122, 170, 206, 0.08);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+/* Hide number input spinners */
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinner {
+  -moz-appearance: textfield;
+  appearance: none;
+}
