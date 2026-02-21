@@ -10,20 +10,6 @@ export default function Page() {
 
   const services = [
     {
-      id: "trip-architect",
-      icon: (
-        <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 004 0h1.5" />
-        </svg>
-      ),
-      title: t("tripArchitectTitle"),
-      desc: t("tripArchitectDesc"),
-      gradient: "from-[#7AAACE]/30 to-[#9CD5FF]/10",
-      iconColor: "text-[var(--primary)]",
-      borderHover: "hover:border-amber-500/20",
-      glowColor: "rgba(122,170,206,0.1)",
-    },
-    {
       id: "gastro-guide",
       icon: (
         <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -36,6 +22,20 @@ export default function Page() {
       iconColor: "text-[var(--secondary)]",
       borderHover: "hover:border-violet-500/20",
       glowColor: "rgba(156,213,255,0.1)",
+    },
+    {
+      id: "trip-architect",
+      icon: (
+        <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 004 0h1.5" />
+        </svg>
+      ),
+      title: t("tripArchitectTitle"),
+      desc: t("tripArchitectDesc"),
+      gradient: "from-[#7AAACE]/30 to-[#9CD5FF]/10",
+      iconColor: "text-[var(--primary)]",
+      borderHover: "hover:border-amber-500/20",
+      glowColor: "rgba(122,170,206,0.1)",
     },
     {
       id: "spot-finder",
@@ -117,7 +117,7 @@ export default function Page() {
 
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/trip-architect" className="btn-premium text-base px-8 py-4 text-white">
+              <Link href="/gastro-guide" className="btn-premium text-base px-8 py-4 text-white">
                 {t("startExploring")}
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />

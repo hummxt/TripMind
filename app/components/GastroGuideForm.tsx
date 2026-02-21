@@ -11,15 +11,15 @@ import {
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
-const inputCls = "w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-800 placeholder:text-slate-300 outline-none focus:border-blue-400 focus:ring-3 focus:ring-blue-100 transition-all";
-const selectCls = "w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-800 outline-none focus:border-blue-400 focus:ring-3 focus:ring-blue-100 transition-all appearance-none cursor-pointer";
+const inputCls = "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm font-medium text-foreground placeholder:text-white/40 outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all";
+const selectCls = "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm font-medium text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all appearance-none cursor-pointer";
 
 /* ── Reusable field wrapper ── */
 const Field = ({
     label, icon: Icon, children
 }: { label: string; icon: React.ElementType; children: React.ReactNode }) => (
     <div className="flex flex-col gap-1.5">
-        <label className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest text-blue-500">
+        <label className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest text-primary">
             <Icon size={13} />
             {label}
         </label>
@@ -45,8 +45,8 @@ const ToggleGroup = ({
                     onClick={() => onChange(id)}
                     className={`flex flex-col items-center gap-1.5 py-3.5 px-3 rounded-xl border text-xs font-semibold transition-all duration-200
                         ${active
-                            ? "bg-blue-500 border-blue-500 text-white shadow-md shadow-blue-200"
-                            : "bg-white border-slate-200 text-slate-500 hover:border-blue-300 hover:text-blue-500"
+                            ? "bg-primary border-primary text-[var(--color-white)] shadow-md"
+                            : "bg-white/5 border-white/10 text-white/50 hover:border-primary/30 hover:text-primary"
                         }`}
                 >
                     <Icon size={20} strokeWidth={active ? 2.5 : 1.8} />
@@ -138,7 +138,7 @@ export default function GastroGuideForm({ onGenerate }: { onGenerate: (data: any
     return (
         <form
             onSubmit={handleSubmit}
-            className="w-full max-w-5xl bg-white border border-slate-100 rounded-3xl shadow-xl shadow-slate-100/80 p-10 space-y-8"
+            className="w-full max-w-5xl card-surface rounded-3xl p-10 space-y-8"
         >
             {/* ── Route ── */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -221,11 +221,11 @@ export default function GastroGuideForm({ onGenerate }: { onGenerate: (data: any
             </div>
 
             {/* ── Divider ── */}
-            <div className="h-px bg-slate-100" />
+            <div className="h-px bg-white/10" />
 
             {/* ── Travel Mode ── */}
             <div className="space-y-3">
-                <p className="text-[11px] font-semibold uppercase tracking-widest text-blue-500">{t("travelMode")}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-primary">{t("travelMode")}</p>
                 <ToggleGroup
                     items={travelModes}
                     value={formData.travelMode}
@@ -236,7 +236,7 @@ export default function GastroGuideForm({ onGenerate }: { onGenerate: (data: any
             {/* ── Accommodation & Budget side by side ── */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="space-y-3">
-                    <p className="text-[11px] font-semibold uppercase tracking-widest text-blue-500">{t("accommodationType")}</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-primary">{t("accommodationType")}</p>
                     <ToggleGroup
                         items={accTypes}
                         value={formData.accommodationType}
@@ -244,7 +244,7 @@ export default function GastroGuideForm({ onGenerate }: { onGenerate: (data: any
                     />
                 </div>
                 <div className="space-y-3">
-                    <p className="text-[11px] font-semibold uppercase tracking-widest text-blue-500">{t("budgetPreference")}</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-primary">{t("budgetPreference")}</p>
                     <ToggleGroup
                         items={budgetPrefs}
                         value={formData.budgetPreference}
@@ -254,11 +254,11 @@ export default function GastroGuideForm({ onGenerate }: { onGenerate: (data: any
             </div>
 
             {/* ── Divider ── */}
-            <div className="h-px bg-slate-100" />
+            <div className="h-px bg-white/10" />
 
             {/* ── Interests (multi-select tags) ── */}
             <div className="space-y-3">
-                <p className="text-[11px] font-semibold uppercase tracking-widest text-blue-500">{t("interests")}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-primary">{t("interests")}</p>
                 <div className="flex flex-wrap gap-2.5">
                     {interestTags.map(({ id, label }) => {
                         const active = formData.interests.includes(id);
@@ -269,8 +269,8 @@ export default function GastroGuideForm({ onGenerate }: { onGenerate: (data: any
                                 onClick={() => toggleInterest(id)}
                                 className={`px-4 py-2 rounded-full text-xs font-semibold border transition-all duration-200
                                     ${active
-                                        ? "bg-blue-500 border-blue-500 text-white shadow-sm shadow-blue-200"
-                                        : "bg-white border-slate-200 text-slate-500 hover:border-blue-300 hover:text-blue-500"
+                                        ? "bg-primary border-primary text-[var(--color-white)] shadow-sm"
+                                        : "bg-white/5 border-white/10 text-white/50 hover:border-primary/30 hover:text-primary"
                                     }`}
                             >
                                 {label}
@@ -283,7 +283,7 @@ export default function GastroGuideForm({ onGenerate }: { onGenerate: (data: any
             {/* ── Food Preference & Meals Per Day ── */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-3">
-                    <p className="text-[11px] font-semibold uppercase tracking-widest text-blue-500">{t("food")}</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-primary">{t("food")}</p>
                     <div className="flex gap-2.5">
                         {foodTypes.map(({ id, label }) => {
                             const active = formData.foodPreference === id;
@@ -294,8 +294,8 @@ export default function GastroGuideForm({ onGenerate }: { onGenerate: (data: any
                                     onClick={() => setFormData({ ...formData, foodPreference: id })}
                                     className={`flex-1 py-3 rounded-xl border text-xs font-semibold transition-all duration-200
                                         ${active
-                                            ? "bg-blue-500 border-blue-500 text-white shadow-sm shadow-blue-200"
-                                            : "bg-white border-slate-200 text-slate-500 hover:border-blue-300 hover:text-blue-500"
+                                            ? "bg-primary border-primary text-[var(--color-white)] shadow-sm"
+                                            : "bg-white/5 border-white/10 text-white/50 hover:border-primary/30 hover:text-primary"
                                         }`}
                                 >
                                     {label}
@@ -320,7 +320,7 @@ export default function GastroGuideForm({ onGenerate }: { onGenerate: (data: any
             </div>
 
             {/* ── Divider ── */}
-            <div className="h-px bg-slate-100" />
+            <div className="h-px bg-white/10" />
 
             {/* ── Special Requests ── */}
             <Field label={t("specialRequests")} icon={ClipboardList}>
@@ -335,7 +335,7 @@ export default function GastroGuideForm({ onGenerate }: { onGenerate: (data: any
             {/* ── Submit ── */}
             <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 active:scale-[0.98] text-white font-bold text-sm uppercase tracking-widest py-4 rounded-2xl transition-all duration-200 shadow-lg shadow-blue-200"
+                className="w-full flex items-center justify-center gap-2 btn-premium text-sm uppercase tracking-widest py-4 rounded-2xl"
             >
                 {t("generateBtn")}
                 <ArrowRight size={16} strokeWidth={2.5} />

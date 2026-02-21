@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GastroGuideForm from "../components/GastroGuideForm";
 import PlanDisplay from "../components/PlanDisplay";
+import { UtensilsCrossed } from "lucide-react";
 
 export default function GastroGuidePage() {
     const { t, language } = useLanguage();
@@ -60,13 +61,13 @@ export default function GastroGuidePage() {
                                 <h1 className="text-6xl md:text-8xl font-black tracking-tighter">
                                     {t("gastroGuideTitle")}
                                 </h1>
-                                <p className="text-xl md:text-2xl text-neutral-500 max-w-2xl mx-auto font-bold tracking-tight">
+                                <p className="text-xl md:text-2xl text-white/40 max-w-2xl mx-auto font-bold tracking-tight">
                                     {t("gastroGuideDesc")}
                                 </p>
                             </div>
 
                             {error && (
-                                <div className="bg-red-50 border border-red-200 text-red-600 px-6 py-4 rounded-2xl text-sm font-semibold max-w-xl mx-auto">
+                                <div className="card-surface border-red-500/20 text-red-400 px-6 py-4 rounded-2xl text-sm font-semibold max-w-xl mx-auto">
                                     {error}
                                 </div>
                             )}
@@ -80,14 +81,16 @@ export default function GastroGuidePage() {
                     {isGenerating && (
                         <div className="flex flex-col items-center gap-10 py-32 animate-in zoom-in-95 duration-500">
                             <div className="relative">
-                                <div className="w-32 h-32 border-[6px] border-blue-100 border-t-blue-500 rounded-full animate-spin" />
+                                <div className="w-32 h-32 rounded-full border-[6px] border-white/5 border-t-primary animate-spin" />
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-4xl">💰</span>
+                                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
+                                        <UtensilsCrossed className="w-7 h-7 text-primary" />
+                                    </div>
                                 </div>
                             </div>
                             <div className="space-y-4">
-                                <h3 className="text-5xl font-black tracking-tighter text-blue-500">{t("analyzing")}</h3>
-                                <p className="text-xs font-black uppercase tracking-[0.3em] text-neutral-400">{t("calculating")}</p>
+                                <h3 className="text-5xl font-black tracking-tighter text-primary">{t("analyzing")}</h3>
+                                <p className="text-xs font-black uppercase tracking-[0.3em] text-white/30">{t("calculating")}</p>
                             </div>
                         </div>
                     )}
