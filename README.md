@@ -74,4 +74,4 @@ app/
 
 ## License
 
-Private.
+MIT - Hummet Azim
